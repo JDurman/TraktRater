@@ -61,6 +61,9 @@
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="Sites\API\Criticker\CritickerItem.cs" />
     <Compile Include="Sites\API\iCheckMovies\CheckMoviesListItem.cs" />
+    <Compile Include="Sites\API\SideReel\SideReelAPI.cs" />
+    <Compile Include="Sites\API\SideReel\SideReelShow.cs" />
+    <Compile Include="Sites\API\SideReel\SideReelURIs.cs" />
     <Compile Include="Sites\API\ToDoMovies\ToDoMoviesListItem.cs" />
     <Compile Include="Sites\CheckMovies.cs" />
     <Compile Include="Logger\FileLog.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="Sites\API\TMDb\TMDbSessionResponse.cs" />
     <Compile Include="Sites\Letterboxd.cs" />
     <Compile Include="Sites\Listal.cs" />
+    <Compile Include="Sites\SideReel.cs" />
     <Compile Include="Sites\TMDb.cs" />
     <Compile Include="Sites\API\TMDb\TMDbAccountInfo.cs" />
     <Compile Include="Sites\API\TMDb\TMDbTokenResponse.cs" />

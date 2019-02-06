@@ -89,6 +89,7 @@
             chkToDoMoviesEnabled.Checked = AppSettings.EnableToDoMovies;
             chkLetterboxdEnabled.Checked = AppSettings.EnableLetterboxd;
             chkFlixsterEnabled.Checked = AppSettings.EnableFlixster;
+            chkSideReelEnabled.Checked = AppSettings.EnableSideReel;
             chkCheckMoviesAddWatchedToWatchlist.Checked = AppSettings.CheckMoviesAddWatchedMoviesToWatchlist;
             chkCheckMoviesUpdateWatchedStatus.Checked = AppSettings.CheckMoviesUpdateWatchedHistory;
             chkCheckMoviesAddMoviesToCollection.Checked = AppSettings.CheckMoviesAddToCollection;
@@ -525,6 +526,21 @@
                 txtToDoMovieExportFile.Text = dlgFileOpen.FileName;
             }
         }
+        private void chkSideReelEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            AppSettings.EnableSideReel = chkSideReelEnabled.Checked;
+            EnableSideControls(AppSettings.EnableSideReel);
+        }
+
+        private void txtSideReelUserName_TextChanged(object sender, EventArgs e)
+        {
+            AppSettings.SideReelUserName = txtSideReelUserName.Text;
+        }
+
+        private void txtSideReelPassword_TextChanged(object sender, EventArgs e)
+        {
+            AppSettings.SideReelPassword = txtSideReelPassword.Text;
+        }
 
         private void lnkLogFolder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -577,6 +593,7 @@
             if (AppSettings.EnableFlixster)         sites.Add(new Flixster(AppSettings.FlixsterUserId, AppSettings.FlixsterSyncWantToSee));
             if (AppSettings.EnableCheckMovies)      sites.Add(new CheckMovies(AppSettings.CheckMoviesFilename, AppSettings.CheckMoviesDelimiter));
             if (AppSettings.EnableToDoMovies)       sites.Add(new ToDoMovies(AppSettings.ToDoMovieFilename));
+            if (AppSettings.EnableSideReel)         sites.Add(new SideReel(AppSettings.SideReelUserName, AppSettings.SideReelPassword));
 
             if (!sites.Any(s => s.Enabled))
             {
@@ -813,6 +830,7 @@
             grbFlixster.Enabled = enable;
             grbCheckMovies.Enabled = enable;
             grbToDoMovies.Enabled = enable;
+            grbSideReel.Enabled = enable;
 
             HideShowTraktAuthControls();
 
@@ -979,7 +997,15 @@
             txtToDoMovieExportFile.Enabled = enableState;
         }
 
+        private void EnableSideControls(bool enableState)
+        {
+            txtSideReelUserName.Enabled = enableState;
+            txtSideReelPassword.Enabled = enableState;
+        }
+
+
         #endregion
+
 
     }
 }

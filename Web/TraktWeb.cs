@@ -11,18 +11,35 @@
     public class ExtendedWebClient : WebClient
     {
         public int Timeout { private get; set; }
+        private WebHeaderCollection headerContainer = new WebHeaderCollection();
+        private CookieContainer cookieContainer = new CookieContainer();
 
         protected override WebRequest GetWebRequest(Uri address)
         {
             WebRequest request = base.GetWebRequest(address);
+            HttpWebRequest webRequest = request as HttpWebRequest;
             if (request != null)
+            {
                 request.Timeout = Timeout;
+                headerContainer = webRequest.Headers;
+                webRequest.CookieContainer = cookieContainer;
+            }
             return request;
         }
 
         public ExtendedWebClient()
         {
             Timeout = 100000; // the standard HTTP Request Timeout default
+        }
+
+        public WebHeaderCollection GetHeaderContainer()
+        {
+            return headerContainer;
+        }
+
+        public CookieContainer GetCookieContainer()
+        {
+            return cookieContainer;
         }
     }
 
@@ -47,7 +64,7 @@
         /// <param name="data">The Data to send</param>
         /// <param name="logResponse">Shall we log the response?</param>
         /// <returns>The response from Server</returns>
-        public static string Transmit(string address, string data, bool logResponse = true)
+        public static string Transmit(string address, string data, bool logResponse = true, WebHeaderCollection headers = null)
         {
             if (OnDataSend != null)
                 OnDataSend(address, data);
@@ -56,6 +73,7 @@
             {
                 ServicePointManager.Expect100Continue = false;
                 var client = new ExtendedWebClient { Timeout = 120000, Encoding = Encoding.UTF8 };
+                if (headers != null) { client.Headers = headers; }
                 client.Headers.Add("user-agent", AppSettings.UserAgent);
 
                 var response = string.Empty;
@@ -98,7 +116,7 @@
             }
          }
 
-        public static string TransmitExtended(string address)
+        public static string TransmitExtended(string address, WebHeaderCollection headers = null)
         {
             if (OnDataSend != null)
                 OnDataSend(address, null);
@@ -106,8 +124,9 @@
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(address);
+                if (headers != null) { request.Headers = headers; }
                 request.UserAgent = AppSettings.UserAgent;
-                request.Accept = "application/json";
+                request.Accept = "application/json";                
 
                 WebResponse response = (HttpWebResponse)request.GetResponse();
                 if (response == null) return null;

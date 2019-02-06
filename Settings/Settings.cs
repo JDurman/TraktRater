@@ -57,6 +57,7 @@
         const string cEnableFlixster = "EnableFlixster";
         const string cEnableCheckMovies = "EnableCheckMovies";
         const string cEnableToDoMovies = "EnableToDoMovies";
+        const string cEnableSideReel = "EnableSideReel";
         const string cLogLevel = "LogLevel";
         const string cBatchSize = "BatchSize";
         const string cWatchedOnReleaseDay = "WatchedOnReleaseDay";
@@ -121,6 +122,10 @@
 
         public static bool WatchedOnReleaseDay { get; set; }
 
+        public static string SideReelUserName { get; set; }
+
+        public static string SideReelPassword { get; set; }
+
         public static bool EnableTVDb { get; set; }
         public static bool EnableTMDb { get; set; }
         public static bool EnableIMDb { get; set; }
@@ -130,6 +135,7 @@
         public static bool EnableLetterboxd { get; set; }
         public static bool EnableFlixster { get; set; }
         public static bool EnableToDoMovies { get; set; }
+        public static bool EnableSideReel { get; set; }
 
         public static LoggingSeverity LogSeverityLevel { get; set; }
 
@@ -205,6 +211,7 @@
                 EnableFlixster = xmlReader.GetSettingValueAsBool(cEnableFlixster, false);
                 EnableCheckMovies = xmlReader.GetSettingValueAsBool(cEnableCheckMovies, false);
                 EnableToDoMovies = xmlReader.GetSettingValueAsBool(cEnableToDoMovies, false);
+                EnableSideReel = xmlReader.GetSettingValueAsBool(cEnableSideReel, false);
                 LogSeverityLevel = (LoggingSeverity)(xmlReader.GetSettingValueAsInt(cLogLevel, 3));
                 BatchSize = xmlReader.GetSettingValueAsInt(cBatchSize, 50);
                 WatchedOnReleaseDay = xmlReader.GetSettingValueAsBool(cWatchedOnReleaseDay, false);
@@ -278,6 +285,7 @@
             xmlWriter.WriteSetting(cEnableFlixster, EnableFlixster.ToString());
             xmlWriter.WriteSetting(cEnableCheckMovies, EnableCheckMovies.ToString());
             xmlWriter.WriteSetting(cEnableToDoMovies, EnableToDoMovies.ToString());
+            xmlWriter.WriteSetting(cEnableSideReel, EnableSideReel.ToString());
             xmlWriter.WriteSetting(cLogLevel, ((int)LogSeverityLevel).ToString());
             xmlWriter.WriteSetting(cBatchSize, BatchSize.ToString());
             xmlWriter.WriteSetting(cWatchedOnReleaseDay, WatchedOnReleaseDay.ToString());
