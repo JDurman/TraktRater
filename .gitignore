@@ -13,3 +13,6 @@
 /obj/x86/Release/TraktRater.csprojResolveAssemblyReference.cache
 /bin/Release/*.zip
 obj
+*.ide-wal
+*.ide
+*.ide-shm
